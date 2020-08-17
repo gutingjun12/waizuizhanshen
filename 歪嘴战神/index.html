@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>歪嘴战神</title>
+    <style>
+        .container {
+            position: relative;
+        }
+
+        #myCanvas {
+            border: 1px solid black;
+            background: url(./bg.png);
+        }
+
+        #mask {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 640px;
+            height: 437px;
+            background: rgba(0, 0, 0, .4);
+        }
+
+        #play {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            line-height: 80px;
+            border-radius: 50%;
+            background: #333;
+            box-shadow: 0 0 2px 4px 4px #000 inset;
+            cursor: pointer;
+            font-size: 30px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- canvas画布 -->
+        <canvas id="myCanvas">
+            当前浏览器不支持Canvas，请更换浏览器后再试
+        </canvas>
+        <!-- 开始按钮 -->
+        <div id="mask">
+            <div id="play">
+                ▶
+            </div>
+        </div>
+        <!-- 鼠标在画布上的坐标 -->
+        <p>坐标(x:<span id="x">0</span>, y:<span id="y">0</span>)</p>
+    </div>
+
+
+
+    <script>
+        window.onload = function () {
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            c.width = 640; //画布宽度
+            c.height = 437; //画布高度
+
+            //鼠标在canvas中的坐标
+            c.addEventListener('mousemove', function (e) {
+                var x = document.getElementById('x');
+                x.innerHTML = e.offsetX;
+                var y = document.getElementById('y');
+                y.innerHTML = e.offsetY;
+            });
+
+            //绘图函数
+            draw('#000', '3', '434', '244');
+
+            //绘图函数 
+            /* 
+            参数：嘴巴color-颜色 
+            lineWidth-线宽 
+            x0-嘴巴结束点x y0-嘴巴结束点y 
+            */
+            function draw(color, lineWidth, x0, y0) {
+
+                if (ctx.ellipse) {
+                    // 头
+                    ctx.beginPath();
+                    ctx.ellipse(360, 180, 140, 170, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = "#c2a69a";
+                    ctx.strokeStyle = "#000";
+                    ctx.lineWidth = 1;
+                    ctx.fill();
+                    ctx.stroke();
+
+                    //头发
+                    ctx.beginPath();
+                    ctx.moveTo(233, 44);
+                    ctx.lineTo(300, 118);
+                    ctx.lineTo(318, 68);
+                    ctx.lineTo(309, 0);
+                    ctx.lineTo(266, 0);
+                    ctx.closePath();
+                    ctx.fillStyle = "#000";
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.moveTo(318, 68);
+                    ctx.lineTo(438, 120);
+                    ctx.lineTo(484, 27);
+                    ctx.lineTo(464, 0);
+                    ctx.lineTo(308, 0);
+                    ctx.closePath();
+                    ctx.fillStyle = "#000";
+                    ctx.fill();
+
+                    //左耳
+                    ctx.beginPath();
+                    ctx.arc(220, 163, 40, -Math.PI / 2.4, Math.PI / 2, true);
+                    ctx.fillStyle = "#c2a69a";
+                    ctx.strokeStyle = "#000";
+                    ctx.fill();
+                    ctx.stroke();
+
+                    //右耳
+                    ctx.beginPath();
+                    ctx.arc(501, 163, 30, -Math.PI / 1.8, Math.PI / 2, false);
+                    ctx.fillStyle = "#c2a69a";
+                    ctx.strokeStyle = "#000";
+                    ctx.fill();
+                    ctx.stroke();
+
+                    //左眉
+                    ctx.beginPath();
+                    ctx.moveTo(332, 156);
+                    ctx.lineTo(326, 149);
+                    ctx.lineTo(268, 132);
+                    ctx.lineTo(241, 150);
+                    ctx.closePath();
+                    ctx.fillStyle = "#444";
+                    ctx.fill();
+
+                    //右眉
+                    ctx.beginPath();
+                    ctx.moveTo(389, 155);
+                    ctx.lineTo(392, 150);
+                    ctx.lineTo(443, 137);
+                    ctx.lineTo(465, 151);
+                    ctx.closePath();
+                    ctx.fillStyle = "#444";
+                    ctx.fill();
+
+                    //左眼
+                    ctx.beginPath();
+                    ctx.ellipse(286, 170, 30, 10, -380, 0, Math.PI * 2);
+                    ctx.fillStyle = "#fff";
+                    ctx.strokeStyle = "#000";
+                    ctx.fill();
+                    ctx.stroke();
+
+                    //左眼珠
+                    ctx.beginPath();
+                    ctx.arc(306, 172, 8, 0, Math.PI * 2, true);
+                    ctx.fillStyle = "#000";
+                    ctx.fill();
+
+
+                    //右眼
+                    ctx.beginPath();
+                    ctx.ellipse(430, 168, 28, 10, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = "#fff";
+                    ctx.strokeStyle = "#000";
+                    ctx.fill();
+                    ctx.stroke();
+
+                    //右眼珠
+                    ctx.beginPath();
+                    ctx.arc(448, 167, 8, 0, Math.PI * 2, true);
+                    ctx.fillStyle = "#000";
+                    ctx.fill();
+
+                    //鼻子
+                    ctx.beginPath();
+                    ctx.moveTo(376, 166);
+                    ctx.lineTo(377, 241);
+                    ctx.strokeStyle = "#000";
+                    ctx.stroke();
+
+                    //注入灵魂 嘴巴
+                    ctx.beginPath();
+                    ctx.moveTo(338, 279); //起始点
+                    var cp1x = 366, cp1y = 304;  //控制点1
+                    var cp2x = 416, cp2y = 286;  //控制点2
+                    var x = x0, y = y0; // 结束点
+                    //绘制三次贝塞尔曲线
+                    ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = lineWidth;
+                    ctx.stroke();
+
+                    //法令纹
+                    ctx.beginPath();
+                    ctx.moveTo(412, 233); //起始点
+                    var cp3x = 419, cp3y = 217;  //控制点1
+                    var cp4x = 450, cp4y = 220;  //控制点2
+                    var a = 450, b = 244; // 结束点
+                    //绘制三次贝塞尔曲线
+                    ctx.bezierCurveTo(cp3x, cp3y, cp4x, cp4y, a, b);
+                    ctx.strokeStyle = '#000';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+
+                } else {
+                    alert('no ellipse');
+                }
+
+
+            };
+
+
+            // 点击播放
+            var mask = document.getElementById('mask');
+            var play = document.getElementById('play');
+            play.addEventListener('click', function () {
+                // 遮罩层隐藏
+                mask.style.display = 'none';
+
+                var timer = 0;
+
+                var t = setInterval(function () {
+
+                    timer += 1;
+
+                    // 随机颜色
+                    var color = '#' + Math.random().toString(16).substr(2, 6).toUpperCase();
+                    //线条宽度
+                    var lineWidth = Math.random() * 20;
+
+                    // 调整结束点y坐标
+                    var r = (Math.random() * 30);
+                    var y = 244 - r;
+                    draw('#000', 3, '434', y);
+
+                    if (timer >= 10) {
+                        draw(color, 3, '434', y);
+                    }
+                    if (timer >= 20) {
+                        draw(color, lineWidth, '434', y);
+                    }
+                    if (timer >= 30) {
+                        ctx.scale(1.1, 1.1);
+                        draw(color, lineWidth, '434', y);
+                    }
+                    if (timer >= 32) {
+                        ctx.scale(0.9, 0.9);
+                        ctx.translate(-10, 50);
+                        draw(color, lineWidth, '434', y);
+                    }
+                    if (timer >= 36) {
+                        ctx.scale(0.9, 0.9);
+                        ctx.translate(-20, -50);
+                        draw(color, lineWidth, '434', y);
+                    }
+                    if (timer >= 38) {
+                        ctx.scale(1.1, 1.1);
+                        ctx.translate(0, -50);
+                        draw(color, lineWidth, '434', y);
+                    }
+                    if (timer >= 45) {
+                        ctx.scale(1, 1);
+                        ctx.translate(80, 30);
+                        draw(color, lineWidth, '434', y);
+                    }
+                    if (timer >= 48) {
+                        ctx.translate(0, 30);
+                        draw(color, lineWidth, '434', y);
+                    }
+                    if (timer >= 60) {
+                        ctx.rotate(10 * Math.PI / 180);
+                        draw(color, lineWidth, '434', y);
+                    }
+
+                    if (timer >= 200) {
+                        clearInterval(t);
+                        console.log('停止');
+                        c.width = 640;
+                        c.height = 437;
+                        //清除画布
+                        ctx.clearRect(0, 0, c.width, c.height);
+
+                        //绘图函数
+                        draw('#000', '3', '434', '244');
+
+                        // 字体
+                        ctx.font = '700 60px Arial';
+                        ctx.fillStyle = '#FFD700';
+                        ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+                        ctx.shadowOffsetX = 6;
+                        ctx.shadowOffsetY = 6;
+                        ctx.fillText("歪", 94, 80);
+                        ctx.fillText("嘴", 94, 152);
+                        ctx.fillText("战", 94, 232);
+                        ctx.fillText("神", 94, 312);
+                    }
+
+
+                }, 60);
+
+
+            });
+
+        }
+
+
+    </script>
+</body>
+
+</html>
